@@ -1,11 +1,17 @@
 require 'csv'
+require 'byebug'
+require_relative '../../db/config'
 
 class SunlightLegislatorsImporter
-  def self.import(filename)
+  byebug
+  def self.import(filename=File.dirname(__FILE__) + "/../db/data/legislators.csv")
+    # byebug
     csv = CSV.new(File.open(filename), :headers => true)
     csv.each do |row|
       row.each do |field, value|
         # TODO: begin
+        p field
+        p value
         raise NotImplementedError, "TODO: figure out what to do with this row and do it!"
         # TODO: end
       end

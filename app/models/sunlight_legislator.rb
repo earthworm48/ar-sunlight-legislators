@@ -1,0 +1,3 @@
+class SunlightLegislator
+
+end
