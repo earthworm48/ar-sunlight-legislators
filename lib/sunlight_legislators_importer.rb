@@ -1,23 +1,31 @@
 require 'csv'
 require 'byebug'
-require_relative '../../db/config'
+require_relative '../app/models/legislator'
 
-class SunlightLegislatorsImporter
-  byebug
-  def self.import(filename=File.dirname(__FILE__) + "/../db/data/legislators.csv")
-    # byebug
+class SunlightLegislatorsImporter < ActiveRecord::Base
+  def self.import(filename)
     csv = CSV.new(File.open(filename), :headers => true)
     csv.each do |row|
+      person = {}
       row.each do |field, value|
         # TODO: begin
-        p field
-        p value
-        raise NotImplementedError, "TODO: figure out what to do with this row and do it!"
+        if Legislator.attribute_names.include? field
+          person[field] = value
+        end     
         # TODO: end
       end
+      Legislator.create!(person)
+      # legislator = Legislator.new()
+      # if legislator.save
+      #   p "success"
+      # else
+      #   legislator.errors #=> "can't be blank， format invalid
+      # end
     end
   end
 end
+
+SunlightLegislatorsImporter.import("../db/data/legislators.csv")
 
 # IF YOU WANT TO HAVE THIS FILE RUN ON ITS OWN AND NOT BE IN THE RAKEFILE, UNCOMMENT THE BELOW
 # AND RUN THIS FILE FROM THE COMMAND LINE WITH THE PROPER ARGUMENT.
