@@ -1,2 +1,4 @@
-class Legislator
+class Legislator < ActiveRecord::Base
+
+
 end

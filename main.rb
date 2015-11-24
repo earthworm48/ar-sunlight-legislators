@@ -3,6 +3,10 @@ require 'byebug'
 
 class Query
 
+	def twitter
+
+	end
+
 	def state(string)
 		puts "Senators:"
 		array = Legislator.where(title: "Sen", state: string)
